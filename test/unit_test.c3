@@ -8,6 +8,24 @@ fn void test_ping()
 	assert(s.handle(tmem, `{"jsonrpc":"2.0","id":1,"method":"ping"}`) == `{"jsonrpc":"2.0","id":1,"result":{}}`);
 }
 
+fn void test_initialize_without_instructions()
+{
+	mcp::Server s = mcp_fixtures::make();
+	defer s.free();
+	String r = s.handle(tmem, `{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18"}}`);
+	assert(!r.contains("instructions"), "got %s", r);
+}
+
+fn void test_initialize_with_instructions()
+{
+	mcp::Server s = mcp_fixtures::make();
+	defer s.free();
+	s.instructions = "line1\n\"quoted\"";
+	String r = s.handle(tmem, `{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18"}}`);
+	assert(r.contains(`"instructions":"line1\n\"quoted\""`), "got %s", r);
+	assert(r.ends_with(`}}`), "got %s", r);
+}
+
 fn void test_notification_has_no_reply()
 {
 	mcp::Server s = mcp_fixtures::make();

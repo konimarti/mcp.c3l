@@ -104,8 +104,10 @@ fn String Server.initialize_result(&self, Allocator a, Object* params)
 			foreach (v : SUPPORTED_VERSIONS) { if (v == requested) version = v; }
 		}
 	}
-	return string::format(a, `{"protocolVersion":%s,"capabilities":{"tools":{}},"serverInfo":{"name":%s,"version":%s}}`,
-		json::marshal(a, version), json::marshal(a, self.name), json::marshal(a, self.version));
+	String instructions = "";
+	if (self.instructions.len > 0) instructions = string::format(a, `,"instructions":%s`, json::marshal(a, self.instructions));
+	return string::format(a, `{"protocolVersion":%s,"capabilities":{"tools":{}},"serverInfo":{"name":%s,"version":%s}%s}`,
+		json::marshal(a, version), json::marshal(a, self.name), json::marshal(a, self.version), instructions);
 }
 
 fn String Server.tools_list(&self, Allocator a)

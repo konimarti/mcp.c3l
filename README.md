@@ -90,6 +90,7 @@ Claude Desktop, Cursor and most other clients take the same thing as JSON (`mcpS
 | Constraints | `@Min(n)`, `@Max(n)`, `@OneOf("a,b,c")`: in the schema and enforced on call |
 | Timeouts | opt-in: `@Timeout(ms)` per tool (or `server.default_timeout_ms` for all); a hung tool cannot block the server |
 | Metadata | `@Desc`, `@Title`, `@ReadOnly`, `@NonDestructive`, `@Idempotent`, `@ClosedWorld` |
+| Instructions | `server.instructions = "..."` is sent to the client in `initialize`, so the model learns when to use your tools |
 | Protocol | MCP 2025-06-18 (also 2025-03-26, 2024-11-05), tools over stdio |
 | Errors | JSON-RPC error codes as in the spec; bad arguments never crash the server |
 

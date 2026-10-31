@@ -55,6 +55,7 @@ def check(name, cond):
         failures.append(name)
 
 check("initialize echoes supported client version", by_id[1]["result"]["protocolVersion"] == "2025-03-26")
+check("initialize carries instructions (escaped, utf-8)", by_id[1]["result"].get("instructions") == 'Demo server.\nUse `add` for sums; say "hi" with greet. Umlaut: ä')
 tools = {t["name"]: t for t in by_id[2]["result"]["tools"]}
 check("tools/list has 12 tools", len(tools) == 12)
 check("schema: required excludes defaulted param", tools["add"]["inputSchema"]["required"] == ["a"])

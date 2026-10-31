@@ -51,6 +51,7 @@ struct Server
 {
 	String name;
 	String version;
+	String instructions;      // optional usage hint for the model, sent in `initialize`; "" (default) = omitted. Borrowed, like name/version.
 	int default_timeout_ms;   // applied to tools without @Timeout; 0 (default) = none
 	List{Tool} tools;
 }

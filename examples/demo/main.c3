@@ -59,6 +59,7 @@ fn String sleepy(int ms @Min(0) @Max(5000) @Desc("how long to sleep")) @Desc("Sl
 fn void main()
 {
 	mcp::Server s = mcp::new_server("c3-demo", "0.1.0");
+	s.instructions = "Demo server.\nUse `add` for sums; say \"hi\" with greet. Umlaut: ä";
 	s.@tool(add);
 	s.@tool(greet);
 	s.@tool(half);
