@@ -1,0 +1,6 @@
+build/
+obj/
+c3/
+c3.tar.gz
+__pycache__/
+*.pyc

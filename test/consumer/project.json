@@ -1,0 +1,8 @@
+{
+  "langrev": "1",
+  "version": "0.1.0",
+  "dependency-search-paths": [ "deps" ],
+  "dependencies": [ "mcp" ],
+  "sources": [ "src/**" ],
+  "targets": { "consumer": { "type": "executable" } }
+}

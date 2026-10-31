@@ -1,0 +1,47 @@
+{
+  "langrev": "1",
+  "warnings": [
+    "no-unused"
+  ],
+  "dependencies": [],
+  "authors": [
+    "Koni Marti <koni.marti@gmail.com>"
+  ],
+  "version": "0.1.0",
+  "sources": [
+    "src/**"
+  ],
+  "test-sources": [
+    "test/**"
+  ],
+  "build-dir": "build",
+  "output": "build",
+  "targets": {
+    "demo": {
+      "type": "executable",
+      "sources": [
+        "examples/demo/**"
+      ]
+    },
+    "c3dev": {
+      "type": "executable",
+      "sources": [
+        "examples/c3dev/**"
+      ]
+    },
+    "hello": {
+      "type": "executable",
+      "sources": [
+        "examples/hello/**"
+      ]
+    },
+    "bench": {
+      "type": "executable",
+      "sources": [
+        "examples/bench/**"
+      ]
+    }
+  },
+  "cpu": "generic",
+  "opt": "O0"
+}

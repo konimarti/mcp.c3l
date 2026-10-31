@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  C3C_VERSION: v0.8.5
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install c3c ${{ env.C3C_VERSION }}
+        run: |
+          curl -fsSL -o c3.tar.gz \
+            "https://github.com/c3lang/c3c/releases/download/${C3C_VERSION}/c3-linux.tar.gz"
+          tar xzf c3.tar.gz
+          echo "$PWD/c3" >> "$GITHUB_PATH"
+
+      - name: Compiler version
+        run: c3c --version
+
+      - name: Build and test
+        run: ./test.sh
