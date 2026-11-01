@@ -1,10 +1,28 @@
 {
   "provides": "mcp",
-  "sources": [ "src/**" ],
+  "sources": [
+    "src/**"
+  ],
   "targets": {
-    "linux-x64":     { "dependencies": [], "linked-libraries": [] },
-    "linux-aarch64": { "dependencies": [], "linked-libraries": [] },
-    "macos-x64":     { "dependencies": [], "linked-libraries": [] },
-    "macos-aarch64": { "dependencies": [], "linked-libraries": [] }
+    "linux-x64": {
+      "dependencies": [],
+      "linked-libraries": []
+    },
+    "linux-aarch64": {
+      "dependencies": [],
+      "linked-libraries": []
+    },
+    "macos-x64": {
+      "dependencies": [],
+      "linked-libraries": []
+    },
+    "macos-aarch64": {
+      "dependencies": [],
+      "linked-libraries": []
+    },
+    "windows-x64": {
+      "dependencies": [],
+      "linked-libraries": []
+    }
   }
 }

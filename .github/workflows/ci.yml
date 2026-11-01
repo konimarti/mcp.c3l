@@ -10,19 +10,33 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Install c3c ${{ env.C3C_VERSION }}
+        shell: bash
         run: |
-          curl -fsSL -o c3.tar.gz \
-            "https://github.com/c3lang/c3c/releases/download/${C3C_VERSION}/c3-linux.tar.gz"
-          tar xzf c3.tar.gz
-          echo "$PWD/c3" >> "$GITHUB_PATH"
+          case "$RUNNER_OS" in
+            Linux)   asset=c3-linux.tar.gz ;;
+            macOS)   asset=c3-macos.zip ;;
+            Windows) asset=c3-windows.zip ;;
+          esac
+          curl -fsSL -o "$asset" "https://github.com/c3lang/c3c/releases/download/${C3C_VERSION}/$asset"
+          case "$asset" in
+            *.tar.gz) tar xzf "$asset" ;;
+            *.zip)    7z x -y "$asset" > /dev/null ;;
+          esac
+          if [ "$RUNNER_OS" = Windows ]; then cygpath -w "$PWD/c3" >> "$GITHUB_PATH"; else echo "$PWD/c3" >> "$GITHUB_PATH"; fi
 
       - name: Compiler version
+        shell: bash
         run: c3c --version
 
       - name: Build and test
+        shell: bash
         run: ./test.sh

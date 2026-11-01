@@ -36,7 +36,7 @@ That is the whole server. `tools/list` now advertises:
 
 ## Install
 
-Requires [`c3c`](https://github.com/c3lang/c3c) **0.8.5**. C3 is pre-1.0, so other versions may not compile. Tested on linux-x64 only; the manifest also lists linux-aarch64 and macos (x64, aarch64), which are untested.
+Requires [`c3c`](https://github.com/c3lang/c3c) **0.8.5**. C3 is pre-1.0, so other versions may not compile. CI builds and tests on linux-x64, macos-aarch64 and windows-x64; the manifest also lists linux-aarch64 and macos-x64, which are untested.
 
 `mcp.c3l` is a regular C3 library (unpacked directory with a `manifest.json`). Put it where your project looks for libraries:
 
