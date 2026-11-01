@@ -40,10 +40,3 @@ jobs:
       - name: Build and test
         shell: bash
         run: ./test.sh
-
-      - name: Diagnose
-        if: failure()
-        shell: bash
-        run: |
-          python3 test/protocol_test.py | grep -v "^PASS" || true
-          python3 test/redteam_test.py | grep -v "^PASS" || true

@@ -129,7 +129,8 @@ fn void test_cap_refuses_timed_tools_but_not_untimed_and_recovers()
 		defer s.free();
 		@pool()
 		{
-			for (int i = 0; i < mcp::MAX_STUCK; i++) assert(mcp_review_fx::call(&s, "edge", `{"ms":600}`).contains("timed out"));
+			// workers sleep 2 s: they must outlive MAX_STUCK timeouts of 100 ms on a slow shared CI runner
+			for (int i = 0; i < mcp::MAX_STUCK; i++) assert(mcp_review_fx::call(&s, "edge", `{"ms":2000}`).contains("timed out"));
 			assert(mcp_review_fx::call(&s, "empty", "{}").contains("still stuck"));              // refused
 			assert(mcp_review_fx::call(&s, "untimed", `{"ms":1}`).contains("inline"));           // not affected
 		};
