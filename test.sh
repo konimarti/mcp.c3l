@@ -8,6 +8,10 @@ c3c test 2>&1 | grep -E "Test Result" || true
 c3c test >/dev/null
 python3 test/protocol_test.py | grep -c PASS | sed 's/^/protocol checks passed: /'
 python3 test/protocol_test.py > /dev/null
+case "$(uname -s)" in
+  MINGW*|MSYS*|CYGWIN*)   # the red-team, c3dev and consumer tests use POSIX tools (touch, symlinks, /etc/passwd)
+    echo "windows: unit + protocol tests only"; echo "ALL OK"; exit 0 ;;
+esac
 python3 test/redteam_test.py | grep -c PASS | sed "s/^/redteam regression checks passed: /"
 python3 test/redteam_test.py > /dev/null
 python3 test/c3dev_test.py > /dev/null && echo "c3dev e2e: PASS"

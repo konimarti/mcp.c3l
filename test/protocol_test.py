@@ -38,7 +38,7 @@ REQS = [
 lines = [json.dumps(r) for r in REQS] + ["not json at all"]
 import time
 t0 = time.time()
-p = subprocess.run([DEMO], input="\n".join(lines) + "\n", capture_output=True, text=True, timeout=20)
+p = subprocess.run([DEMO], input="\n".join(lines) + "\n", capture_output=True, text=True, encoding="utf-8", timeout=20)
 elapsed = time.time() - t0
 assert p.returncode == 0, f"exit code {p.returncode}\n{p.stderr}"
 out = [json.loads(l) for l in p.stdout.splitlines() if l.strip()]

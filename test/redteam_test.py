@@ -8,7 +8,7 @@ fails = []
 
 def run(binary, lines, raw=None, timeout=20):
     data = raw if raw is not None else "\n".join(lines) + "\n"
-    p = subprocess.run([binary], input=data, capture_output=True, text=True, timeout=timeout)
+    p = subprocess.run([binary], input=data, capture_output=True, text=True, encoding="utf-8", timeout=timeout)
     out = []
     for l in p.stdout.splitlines():
         if l.strip():
