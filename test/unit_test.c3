@@ -208,10 +208,11 @@ fn void test_stuck_workers_are_capped()
 {
 	mcp::Server s = mcp_fixtures::make();
 	defer s.free();
-	for (int i = 0; i < mcp::MAX_STUCK; i++) assert(mcp_fixtures::call_tool(&s, "slow", `{"ms":500}`).contains("timed out"));
+	// workers sleep 2 s, much longer than MAX_STUCK timeouts of 100 ms, even on a slow shared CI runner
+	for (int i = 0; i < mcp::MAX_STUCK; i++) assert(mcp_fixtures::call_tool(&s, "slow", `{"ms":2000}`).contains("timed out"));
 	String r = mcp_fixtures::call_tool(&s, "slow", `{"ms":1}`);
 	assert(r.contains("earlier calls are still stuck") && r.contains(`"isError":true`), "got %s", r);
-	thread::sleep_ms(800);
+	thread::sleep_ms(2500);
 	assert(mcp::g_stuck.load() == 0);
 	assert(mcp_fixtures::call_tool(&s, "slow", `{"ms":1}`).contains(`"text":"done"`));
 }
